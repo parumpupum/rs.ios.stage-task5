@@ -44,15 +44,25 @@ public final class Knapsack {
             }
         }
         
+        for i in 1...maxWeight{
+            if (foodsBackpack[foods.count][i] < foodsBackpack[foods.count][i - 1]){
+                foodsBackpack[foods.count][i] = foodsBackpack[foods.count][i - 1]
+            }
+        }
+        
+        for i in 1...maxWeight{
+            if (drinksBackpack[drinks.count][i] < drinksBackpack[drinks.count][i - 1]){
+                drinksBackpack[drinks.count][i] = drinksBackpack[drinks.count][i - 1]
+            }
+        }
+        
         var max = 0
         for i in 0...maxWeight{
             let currentFood = foodsBackpack[foods.count][i]
-            for j in 0...maxWeight{
-                let currentDrink = drinksBackpack[drinks.count][j]
-                var result = currentFood
-                if (currentDrink < currentFood){ result = currentDrink }
-                if (i + j <= maxWeight && result > max) {max = result}
-            }
+            let currentDrink = drinksBackpack[drinks.count][maxWeight - i]
+            var result = currentFood
+            if (currentDrink < currentFood){ result = currentDrink }
+            if (result > max) {max = result}
         }
         
         return max
